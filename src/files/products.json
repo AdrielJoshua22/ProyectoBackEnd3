@@ -1,0 +1,56 @@
+[
+	{
+		"title": "Naranja",
+		"description": "Es una fruta naranja",
+		"price": 150,
+		"thumbnail": "url imagen",
+		"code": 1234,
+		"stock": 25,
+		"id": 1
+	},
+	{
+		"title": "Pera",
+		"description": "Es una fruta amarilla",
+		"price": 250,
+		"thumbnail": "url imagen",
+		"code": 1245,
+		"stock": 20,
+		"id": 2
+	},
+	{
+		"title": "Durazno",
+		"description": "Es una fruta anaranjada",
+		"price": 450,
+		"thumbnail": "url imagen",
+		"code": 1256,
+		"stock": 35,
+		"id": 3
+	},
+	{
+		"title": "Banana",
+		"description": "Es una fruta amarilla",
+		"price": 225,
+		"thumbnail": "url imagen",
+		"code": 1278,
+		"stock": 45,
+		"id": 4
+	},
+	{
+		"title": "Manzana",
+		"description": "Es una fruta roja",
+		"price": 550,
+		"thumbnail": "url imagen",
+		"code": 1289,
+		"stock": 55,
+		"id": 5
+	},
+	{
+		"title": "Ciruela",
+		"description": "Es una fruta violeta",
+		"price": 650,
+		"thumbnail": "url imagen",
+		"code": 1298,
+		"stock": 150,
+		"id": 6
+	}
+]
