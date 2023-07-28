@@ -1,56 +1,56 @@
 [
 	{
-		"title": "Naranja",
-		"description": "Es una fruta naranja",
-		"price": 150,
+		"title": "Aceite Semi Sintetico",
+		"description": "para motores con poca exigencia 30/50",
+		"price": 1000,
 		"thumbnail": "url imagen",
 		"code": 1234,
-		"stock": 25,
+		"stock": 250,
 		"id": 1
 	},
 	{
-		"title": "Pera",
-		"description": "Es una fruta amarilla",
-		"price": 250,
+		"title": "Aceite sintetico Importado",
+		"description": "Para motores con mucha exigencia 10/50",
+		"price": 2500,
 		"thumbnail": "url imagen",
 		"code": 1245,
-		"stock": 20,
+		"stock": 600,
 		"id": 2
 	},
 	{
-		"title": "Durazno",
-		"description": "Es una fruta anaranjada",
-		"price": 450,
+		"title": "Aceite Sintetico nacional SHELL ",
+		"description": "buen producto, marca SHELL",
+		"price": 890,
 		"thumbnail": "url imagen",
 		"code": 1256,
-		"stock": 35,
+		"stock": 350,
 		"id": 3
 	},
 	{
-		"title": "Banana",
-		"description": "Es una fruta amarilla",
-		"price": 225,
+		"title": "Aceite Sintetico nacional YPF",
+		"description": "buen producto, marca YPF",
+		"price": 950,
 		"thumbnail": "url imagen",
 		"code": 1278,
-		"stock": 45,
+		"stock": 524,
 		"id": 4
 	},
 	{
-		"title": "Manzana",
-		"description": "Es una fruta roja",
-		"price": 550,
+		"title": "Aceite sintetico Importado IPHONE",
+		"description": "buen producto, marca IPHONE 30/60",
+		"price": 2230,
 		"thumbnail": "url imagen",
 		"code": 1289,
-		"stock": 55,
+		"stock": 555,
 		"id": 5
 	},
 	{
-		"title": "Ciruela",
-		"description": "Es una fruta violeta",
-		"price": 650,
+		"title": "Aceite sintetico Importado CASTROL",
+		"description": "buen producto, marca CASTROL 30/60",
+		"price": 2230,
 		"thumbnail": "url imagen",
-		"code": 1298,
-		"stock": 150,
-		"id": 6
+		"code": 1289,
+		"stock": 555,
+		"id": 5
 	}
 ]
