@@ -1,0 +1,32 @@
+<h1>Products List</h1>
+<h2>bienvenido {{this.user.firstName}}.</h2>
+<a href="/api/sessions/logout"><button>logout</button></a>
+<br>
+
+{{#if category}}
+    <p>Category: {{category}}</p>
+{{/if}}
+
+{{#if status}}
+    <p>Status: {{status}}</p>
+{{/if}}
+
+{{#each filterProducts}}
+    <p>{{this.title}}</p>
+    <p>{{this.price}}</p>
+    {{#with this.thumbnail}}
+        <img src="{{this.[0]}}">
+    {{/with}}
+    <br>
+    <button>Agregar al Carrito</button> 
+{{/each}}
+
+{{#if hasPrevPage}}
+    <a href="/products?page={{prevPage}}">Anterior</a>
+{{/if}}
+
+<h5>{{page}}</h5>
+
+{{#if hasNextPage}}
+    <a href="/products?page={{nextPage}}">Siguiente</a>
+{{/if}}

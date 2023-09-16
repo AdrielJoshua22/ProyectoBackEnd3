@@ -1,0 +1,35 @@
+[
+	{
+		"id": 1,
+		"title": "Yerba Canarias",
+		"descripcion": "Yerba mate Canarias, tradición y calidad",
+		"price": 194,
+		"thumbnail": "https://prod-resize.tiendainglesa.com.uy/images/large/P000691-1.jpg?20170830115411,Yerba-CANARIAS-1-Kg-en-Tienda-Inglesa",
+		"code": 691,
+		"status": true,
+		"stock": 33,
+		"category": "yerba"
+	},
+	{
+		"id": 2,
+		"title": "Yerba Baldo",
+		"descripcion": "yerba mate Baldo, calidad y tradición.",
+		"price": 187,
+		"thumbnail": "https://prod-resize.tiendainglesa.com.uy/images/large/P127359-1.jpg?20170830115515,Yerba-BALDO-1Kg-en-Tienda-Inglesa",
+		"code": 127359,
+		"status": true,
+		"stock": 12312,
+		"category": "yerba"
+	},
+	{
+		"id": 3,
+		"title": "Yerba La Selva",
+		"descripcion": "yerba mate La Selva, calidad y tradición.",
+		"price": 220,
+		"thumbnail": "https://prod-resize.tiendainglesa.com.uy/images/large/P107271-1.jpg?20210611030035,Yerba-LA-SELVA-para-Nerviosos-1-Kg-en-Tienda-Inglesa",
+		"code": 123124,
+		"status": true,
+		"stock": 4,
+		"category": "yerba"
+	}
+]
