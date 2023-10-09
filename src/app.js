@@ -10,6 +10,8 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 //import FileStore from 'session-file-store';
 import MongoStore from 'connect-mongo';
+import passport from 'passport';
+import initializeStrategies from './config/passport.config.js';
 
 
 
@@ -17,7 +19,7 @@ const app = express();
 //const FileStorage = FileStore(session);      
 const PORT = process.env.PORT||8080;
 const server = app.listen(PORT, ()=>console.log(`esuchando en puerto ${PORT}`));
-const connection = mongoose.connect("mongodb+srv://adrieljoshua:asd123@cluster0.cbzpqis.mongodb.net/?retryWrites=true&w=majority");
+const connection = mongoose.connect("mongodb+srv://luttringerezequiel:123@cluster0.obvrjnw.mongodb.net/ecommerce?retryWrites=true&w=majority");
 //const server = http.createServer(app); // Crea el servidor HTTP
 
 
@@ -35,13 +37,17 @@ app.use(express.static((`${__dirname}/public`)));
 app.use(cookieParser("LECHUZA"));
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: "mongodb+srv://adrieljoshua:asd123@cluster0.cbzpqis.mongodb.net/?retryWrites=true&w=majority",
+        mongoUrl: "mongodb+srv://luttringerezequiel:123@cluster0.obvrjnw.mongodb.net/ecommerce?retryWrites=true&w=majority",
         ttl:900
     }),                                            //new FileStorage({path: './sessions', retries:0, ttl:900,reapInterval:10}),
     secret: 'coderS3cret',
     resave: false,                   //reescribir session 
     saveUninitialized: true         //session solo donde se inicialice y utilicen
 }))
+
+//configuracion de passport, ejecucion
+initializeStrategies();
+//app.use(passport.initialize());
 
 //routes
 app.use('/', views_mRouter);

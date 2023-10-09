@@ -60,5 +60,11 @@ router.get('/login', async(req,res)=>{
     res.render('login')
 })
 
+//JWT views
+
+router.get('/profilejwt', async(req,res)=>{
+    res.render('ProfileJWT', {user: req.session.user});
+})
+
 
 export default router;
