@@ -3,9 +3,9 @@ import local from 'passport-local';
 import GithubStrategy from 'passport-github2';
 import UserManager from "../dao/mongo/managers/userManager.js";
 import auth from "../services/auth.js";
-import {Strategy,ExtractJwt} from 'passport-jwt';
+import { Strategy,ExtractJwt } from 'passport-jwt';
 import { cookieExtractor } from "../utils.js";
-
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 
 
 const LocalStrategy = local.Strategy; //local = user + pass
@@ -44,7 +44,6 @@ const initializeStrategies = ()=>
 
     }, async (accessToken, refreshToken, profile, done)=>
     {
-        console.log(profile);
         const {email,name} = profile._json;
         const user = await usersServices.getBy({email});
         if(!user)
@@ -63,6 +62,31 @@ const initializeStrategies = ()=>
             done(null,user);
         }
     }))
+
+    passport.use('google', new GoogleStrategy(
+    {
+        clientID:"682700092334-ls46chnjrekrkvp7lr6907m5posodi02.apps.googleusercontent.com",
+        clientSecret:"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",
+        callbackURL:"http://localhost:8080/api/sessions/googlecallback",
+    },async(accessToken, refreshToken, profile, done) => 
+    {
+        try 
+        {
+            const { _json } = profile;
+            const user = await usersServices.getBy({ email: _json.email });
+      
+            if (user) return done(null, user); //se encontro en la bd un usuario con el email ingresado.
+            else 
+            {
+                //caso contrario, creo usuario y agrego a bd (o persistencia seleccionada)
+                const newUser = {firstName: _json.given_name,lastName: _json.family_name,email: _json.email};
+                const createdUser = await usersServices.create(newUser);
+              
+                if (createdUser) return done(null, createdUser);
+                else return done(new Error('Error al crear el usuario'), null);
+            }
+        } catch (error){ return done(error, null);}
+    }));
 
     passport.use('jwt', new Strategy(
     {

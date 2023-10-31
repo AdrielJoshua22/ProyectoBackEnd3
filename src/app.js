@@ -37,7 +37,7 @@ app.use(express.static((`${__dirname}/public`)));
 app.use(cookieParser("LECHUZA"));
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: "mongodb+srv://luttringerezequiel:123@cluster0.obvrjnw.mongodb.net/ecommerce?retryWrites=true&w=majority",
+        mongoUrl: "mongodb+srv://adrieljoshua:asd123@cluster0.cbzpqis.mongodb.net/?retryWrites=true&w=majority",
         ttl:900
     }),                                            //new FileStorage({path: './sessions', retries:0, ttl:900,reapInterval:10}),
     secret: 'coderS3cret',

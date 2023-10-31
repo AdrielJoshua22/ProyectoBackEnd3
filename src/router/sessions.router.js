@@ -14,7 +14,7 @@ router.post('/register', async(req,res)=>
 {
     //utilizo mi passport strategy para register.
     passport.authenticate('register', (error, result, info) => 
-    {
+    {4
         if (error) return res.status(500).send({ status: "error", error: "Internal server error" });
         if (!result) return res.status(400).send({ status: "error", error: info.message ? info.message : info.toString() });
         res.status(200).send({ status: "success", payload: result._id });
