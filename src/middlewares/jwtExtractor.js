@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 export const validateJWT = (req,res,next)=>
 {
     const authHeader = req.headers.authorization;
+
     if(!authHeader) return res.status(401).send({status:'error', error:'no estas logeado'})
     const token = authHeader.split(' ')[1];
 

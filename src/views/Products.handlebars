@@ -1,32 +1,142 @@
-<h1>Products List</h1>
-<h2>bienvenido {{this.user.firstName}}.</h2>
-<a href="/api/sessions/logout"><button>logout</button></a>
-<br>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<link rel="stylesheet" href="/css/products.css">
 
-{{#if category}}
-    <p>Category: {{category}}</p>
-{{/if}}
+<section class="user_profile">
+    <span id="profile_hid">&#9776;</span>
+    <h1>bienvenid@</h1>
+    <hr>
 
-{{#if status}}
-    <p>Status: {{status}}</p>
-{{/if}}
+    <p id="userName"></p>
+    <p id="userEmail"></p>
+    <a href="/"><button class="submitBtn ">profile</button></a>
+    <form action="/api/carts" method="POST"><button class="submitBtn " type="submit">ver carrito</button></form>
+</section>
 
-{{#each filterProducts}}
-    <p>{{this.title}}</p>
-    <p>{{this.price}}</p>
-    {{#with this.thumbnail}}
-        <img src="{{this.[0]}}">
-    {{/with}}
-    <br>
-    <button>Agregar al Carrito</button> 
-{{/each}}
+<section class="products_cont">
+    <h1>lista de productos</h1>
 
-{{#if hasPrevPage}}
-    <a href="/products?page={{prevPage}}">Anterior</a>
-{{/if}}
+    <div class="products_grid">
+        {{#each filterProducts}}
+            <div class="product">
+                {{#with this.thumbnail}}
+                    <img src="{{this.[0]}}">
+                {{/with}}
+                <p class="titleProd">{{this.title}}</p>
+                <br>
+                {{#if category}}
+                    <p>category: {{category}}</p>
+                {{/if}}
 
-<h5>{{page}}</h5>
+                {{#if status}}
+                    <p>disponibilidad: disponible</p>
+                    <p>stock: {{this.stock}}</p>
+                {{else}}
+                    <p>disponibilidad: sin stock</p>
+                {{/if}}
+                <p>precio: {{this.price}}</p>
+                <!--
+                <form action="/api/carts/addProductToCart" method="POST">
+                    <input type="hidden" name="productId" value="{{this._id}}">
+                    <button type="submit" class="addCart">Agregar al Carrito</button>
+                </form>-->
+                <button class="addCart" onclick="addProductToCart('{{this._id}}')"> Agregar al carrito</button>
+            </div>
+        {{/each}}
+    </div>
+</section>
 
-{{#if hasNextPage}}
-    <a href="/products?page={{nextPage}}">Siguiente</a>
-{{/if}}
+<section class="paginador">
+    {{#if hasPrevPage}}
+        <a href="/products?page={{prevPage}}">anterior</a>
+    {{/if}}
+
+    <h5>{{page}}</h5>
+
+    {{#if hasNextPage}}
+        <a href="/products?page={{nextPage}}">siguiente</a>
+    {{/if}}
+</section>
+
+
+<script>
+    const menu_profile = document.querySelector('#profile_hid');
+    
+    menu_profile.addEventListener('click', ()=>
+    {
+        document.querySelector('.user_profile').classList.toggle('hidden');
+        menu_profile.classList.toggle('rotate');
+    });
+
+
+    //verificamos si existe  local storage con el accesToken (proviene del login basico).
+    let token = localStorage.getItem('accessToken');
+    
+    if(!token)
+    {
+        //verifico que no provenga desde el login de google o github (como son server side ellos no crean el accessToken en localStorage)
+        const n_token = "{{authToken}}";
+        if(n_token)
+        {
+            localStorage.setItem('accessToken', n_token);
+            token = localStorage.getItem('accessToken');
+            window.location.replace('/products');
+        }else 
+        {
+            window.location.replace('/login');
+        }
+        
+    } 
+    
+    fetch('/api/sessions/profileInfo', 
+    {
+        method:'GET',
+        headers:
+        {
+            authorization: `Bearer ${token}`
+        }
+    }).then(response=>response.json())
+    .then(result=>
+    {
+        const user =result.payload;
+        document.querySelector("#userName").innerHTML = `${user.name}`;
+        document.querySelector("#userEmail").innerHTML = `${user.email}`;
+    })
+
+
+    const addProductToCart = (idPro)=> 
+    {
+        const productId = idPro;
+
+        const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ productId: productId })
+        };
+
+        fetch('/api/carts/addProductToCart', requestOptions)
+        .then(response => response.text())
+        .then(result => 
+        {
+            if(result === "Producto actualizado en el carrito")
+            {
+                Toastify({
+                    text: "carrito actualizado",
+                    duration: 3000
+                }).showToast();
+            }
+        })
+        .catch(error => 
+        {
+            Toastify({
+                text: `ocurrio un error`,
+                duration: 3000
+            }).showToast();
+            console.error(error);
+        });
+    }
+</script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

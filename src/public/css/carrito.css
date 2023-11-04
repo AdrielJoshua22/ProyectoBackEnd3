@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+body
+{
+    margin: 0;
+    overflow: hidden;
+}
+
+:root 
+{
+    --color-black-one: #111a25;
+    --color-crema-one: #FFFBF0;
+    --color-yellow-one: #f3b916;
+}
+
+.cont_carrito
+{
+    width: 100vw;
+    height: 100vh;
+    padding-left: 30px;
+    display: flex;
+    place-content: center;
+    align-items: flex-start;
+    background-image: url(/img/others/sunflowers-8316194_1280.jpg);
+    background-position: center;
+    background-size: cover;
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.cont_carrito>span
+{
+    background-color: var(--color-crema-one);
+    padding: 3px;
+}
+
+.cont_carrito>span:nth-child(1)
+{
+    margin: 15px 0 0 0;
+}
+
+.cont_carrito>span>h1 
+{
+   font-size: 2rem;
+   font-weight: 600;
+   color: var(--color-black-one);
+   padding: 0;
+   margin: 0;
+}
+
+.cont_carrito>span>p 
+{
+    font-size: 0.9rem;
+    color: var(--color-black-one);
+    padding: 0;
+    margin: 0;
+}
+
+.cont_carrito>div>a>button, .cont_carrito>form>button
+{
+    width: 150px;
+    height: 30px;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    background-color: var(--color-yellow-one);
+    color: var(--color-black-one);
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.cont_carrito>span>h3 
+{
+    margin: 0;
+    padding: 0;
+}
+
+.buy_btn
+{
+    background-color: greenyellow!important;
+}
+
+.cont_carrito>div>a>button:hover 
+{
+    transition: background-color ease-in 1s, color ease 1s;
+    background-color: var(--color-black-one);
+    color: var(--color-yellow-one);
+}
+
+.buy_btn:hover  
+{
+    transition: background-color ease-in 1s, color ease 1s;
+    background-color: var(--color-black-one)!important;
+    color: var(--color-yellow-one);
+}
+
+hr 
+{
+    width: 400px;
+    color: white;
+    left: 0;
+    margin-left: 0;
+    border: 1px solid white;
+}

@@ -1,13 +1,19 @@
-<h1>login</h1>
+<link rel="stylesheet" href="/css/login.css">
 
-<div>
-    <form id="loginForm">
-        <label>Email</label><input name="email">
-        <br>
-        <label>Contraseña</label><input name="password">
-        <input type="submit">
-    </form>
-</div>
+<section class="cont_login">
+    <div class="form_login">
+        <h1>login</h1>
 
-<p>si aún no estas registrado <a href="/register">click aquí</a></p>
+        <form id="loginForm">
+            <input name="email" placeholder="email">
+            <input name="password" type="password" placeholder="password">
+            <input class="submitBtn" type="submit" value="iniciar sesión">
+        </form>
+
+        <p>si aún no estas registrado <a href="/register">click aquí</a>.</p>
+        <p>login mediante <a href="/api/sessions/github">github</a>.</p>
+        <p>login mediante <a href="/api/sessions/google">google</a>.</p>
+    </div>
+</section>
+
 <script src="/js/login.js"></script>

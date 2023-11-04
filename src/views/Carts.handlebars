@@ -1,13 +1,66 @@
-<h1>carts list</h1>
+ <link rel="stylesheet" href="/css/carrito.css">
 
-{{#if cart}}
-    <p> id carrito: {{cart._id}}</p>
-    <br>
-    {{#each cart.products}}
-        <br>
-        <p> id producto: {{this.id_product}}</p>
-        <p> quantity producto: {{this.quantity}}</p>
-    {{/each}}
-{{else}}
-    <p>No se encontró ningún carrito.</p>
-{{/if}}
+<section class="cont_carrito">
+    <span><h1>tu carrito</h1></span>
+    <hr>
+    {{#if cart_filtrado}}
+        <span><p> <strong>id carrito</strong>: {{cart_filtrado.id}}</p></span>
+        <span><p> <strong>user id</strong>: {{cart_filtrado.usuario}}</p></span>
+
+        <div>
+            <a href="/products"><button>regresar tienda</button></a>
+            <a href="/"><button>regresar profile</button></a>
+            <a href=""><button class="buy_btn" onclick="buy_cart();">comprar carrito</button></a>
+        </div>
+        
+        <hr>
+        {{#if cart_filtrado.productos.length}}
+            {{#each cart_filtrado.productos}}
+                <br>
+                <span><p>{{this.f_title}} || <strong>cantidad: </strong>{{f_quantity}} || <strong>precio: </strong>{{this.f_price}}</p></span> 
+            {{/each}}
+            <br>
+            <hr>
+            <span><h3>total: {{sumPrice cart_filtrado.productos}}</h3></span>
+            
+        {{else}}
+            <span><p>No hay productos en el carrito.</p></span>
+        {{/if}}
+    {{else}}
+        <span><p>No se encontró ningún carrito.</p></span>
+    {{/if}}
+</section>
+
+
+<script>
+    const buy_cart = ()=> 
+    {
+        let token = localStorage.getItem('accessToken');
+        let cartId = "{{cart_filtrado.id}}";
+        let sumTotalPrice = {{sumPrice cart_filtrado.productos}};
+        const url = '/api/carts/' + cartId + '/purchase';
+
+        const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ sumTotalPrice: sumTotalPrice })
+        };
+
+        fetch(url, requestOptions)
+            .then(response => {
+                return response.text(); 
+            })
+            .then(result => {
+                if( result === "Compra exitosa")
+                {
+                    alert("whyt?")
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    }
+</script>

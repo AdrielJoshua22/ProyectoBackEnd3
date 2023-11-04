@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+:root 
+{
+    --color-black-one: #111a25;
+    --color-crema-one: #FFFBF0;
+    --color-yellow-one: #f3b916;
+}
+
+body
+{
+    margin: 0;
+    overflow: hidden;
+}
+
+.user_profile.hidden 
+{
+    transform: translateX(calc(100% - 10px));
+    background-color: var(--color-black-one);
+}
+
+#profile_hid.rotate 
+{
+    transform: rotate(90deg);
+    color: var(--color-crema-one);
+}
+
+.user_profile
+{
+    transition: transform ease-in 0.5s, background-color ease-in 0.5s;
+    width: auto;
+    height: auto;
+    font-family: 'Montserrat', sans-serif;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--color-crema-one);
+    padding: 15px;
+    border-radius: 13px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.submitBtn
+{
+    width: auto;
+    height: 30px;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    background-color: var(--color-yellow-one);
+    color: var(--color-black-one);
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.submitBtn:hover 
+{
+    transition: background-color ease-in 1s, color ease 1s;
+    background-color: var(--color-black-one);
+    color: var(--color-yellow-one);
+}
+
+.user_profile>h1, .user_profile>p
+{
+    color: var(--color-black-one);
+}
+
+.user_profile>h1
+{
+    font-size: 0.9rem;
+}
+
+.user_profile>p
+{
+    font-size: 0.8rem;
+}
+
+.user_profile>hr 
+{
+    width: 100%;
+    background: #303030
+}
+
+.user_profile>span 
+{
+    transition: transform ease-in 0.5s, color ease-in 0.5s;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+}
+
+.products_cont 
+{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('/img/others/ia_backgr.jpeg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.products_cont>h1 
+{
+    font-family: 'Montserrat', sans-serif;
+    color: var(--color-black-one);
+    font-weight: 600;
+}
+
+.products_grid 
+{
+    width: 80%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(3,20vw);
+    grid-template-rows: 25vw;
+    grid-gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.product
+{
+    display: flex;
+    height: 25vw;
+    flex-direction: column;
+    padding: 5px;
+    box-sizing: content-box;
+    background-color: white;
+    border-radius: 13px;
+    position: relative;
+}
+
+.product>.titleProd
+{
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 800
+}
+
+.product>p 
+{
+    font-family: 'Montserrat', sans-serif;
+    color: var(--color-black-one);
+    margin: 0;
+    padding: 0;
+}
+
+.product>img 
+{
+    width: 15vw!important;
+    height: 15vw!important;
+    margin-left: 2.5vw;
+    object-fit: cover;
+}
+
+.addCart 
+{
+    width: 50%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    height: 30px;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    background-color: var(--color-yellow-one);
+    color: var(--color-black-one);
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-top: 10px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 5px;
+}
+
+.addCart:hover
+{
+    transition: background-color ease-in 1s, color ease 1s;
+    background-color: var(--color-black-one);
+    color: var(--color-yellow-one);
+}
+
+.paginador
+{
+    background-color: var(--color-crema-one);
+    position: absolute;
+    width: auto;
+    height: auto;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    border-radius: 13px;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.paginador>a, .paginador>h5
+{
+    font-family: 'Montserrat', sans-serif;
+    color: var(--color-black-one);
+    margin: 0 10px;
+}
+
+.paginador>a 
+{
+    text-decoration: none;
+    color: var(--color-yellow-one);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.paginador>a:hover
+{
+    transition: color ease 1s;
+    color: var(--color-black-one);
+}

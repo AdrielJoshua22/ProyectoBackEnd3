@@ -1,4 +1,4 @@
-import { cartService } from "../services/index.js";
+import { cartService, productService, ticketService } from "../services/index.js";
 
 const createCartByUserId = async (req, res) => 
 {
@@ -55,7 +55,6 @@ const getCart = async (req, res) => {
     }
 }
 
-
 const updateCartProducts = async (req, res) => {
     try {
         const userId = req.user.id;
@@ -79,10 +78,51 @@ const updateCartProducts = async (req, res) => {
     }
 }
 
+const purchaseCart = async (req, res) => 
+{
+    try {
+        const userId = req.user.id;
+        const cartId = req.params.cid;
+        const sumProducts = req.body.sumTotalPrice;
+        const cart = await cartService.getCartByUserId(userId);
+
+        if (!cart) return res.status(404).send("Error: Carrito no encontrado");
+
+        // Verifica el stock de cada producto en el carrito
+        const productsInCart = cart.products;
+        const purchasedProducts = []; // Almacenará los productos comprados
+
+        for (const productInCart of productsInCart) 
+        {
+            const productId = productInCart.id_product;
+            const product = await productService.getProductById(productId);
+
+            if (!product) return res.status(404).send("Error: Producto no encontrado");
+            if (product.stock >= productInCart.quantity) purchasedProducts.push(productInCart);
+            
+            product.stock -= productInCart.quantity;
+            const updateProduct = await productService.updateProduct(productId,product);
+        }
+
+        // Actualiza el carrito con los productos que no se compraron
+        const updatedProducts = productsInCart.filter(productInCart => !purchasedProducts.includes(productInCart));
+        cart.products = updatedProducts;
+        await cart.save();
+
+        const ticket = await ticketService.createTicket(userId, cartId, sumProducts);
+
+        console.log(ticket);
+        return res.status(200).send("Compra exitosa");
+    } catch (error) {
+        return res.status(500).send("Error: " + error.message);
+    }
+}
+
 
 export default 
 {
     createCartByUserId,
     getCart,
-    updateCartProducts
+    updateCartProducts,
+    purchaseCart
 }

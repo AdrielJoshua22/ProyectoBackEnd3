@@ -4,7 +4,7 @@ export default class PersistenceFactory
 {
     static getPersistence = async()=>
     {
-        let productsDao, cartsDao;
+        let productsDao, cartsDao, ticketsDao;
 
         switch(config.app.PERSISTENCE)
         {
@@ -12,6 +12,7 @@ export default class PersistenceFactory
             {
                 productsDao = (await import('./mongo/managers/productsDao.js')).default;
                 cartsDao = (await import('./mongo/managers/cartsDao.js')).default;
+                ticketsDao = (await import('./mongo/managers/ticketsDao.js')).default;
                 break;
             }
                 
@@ -24,7 +25,8 @@ export default class PersistenceFactory
         }
         return{
             productsDao,
-            cartsDao
+            cartsDao,
+            ticketsDao
         }
     }
 }
