@@ -31,9 +31,8 @@ const getViewsProducts = async (req, res) =>
         });
     } catch (error) 
     {
-        // Manejo de errores, puedes enviar una respuesta de error o registrar el error
-        console.error(error);
-        res.status(500).send('Error interno del servidor');
+        req.logger.error(`[${new Date().toISOString()}] Error interno del servidor}`);
+        res.status(500);
     }
 };
 
@@ -43,7 +42,6 @@ const getCartsById = async (req, res) =>
     const filter = { _id: carrito_id };
     const cart = await cartService.getCartWithDetails(filter);
 
-    //creo un cart con las propiedades por defecto cambiadas ya que hbs no le gusta manejarlas directamente
     let productos = [];
     if (cart) productos = cart.products;
     
