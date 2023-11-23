@@ -83,6 +83,19 @@ export default class ProductDao
         return productsModel.updateOne({_id:id},{$set:product});
     }
 
+    getProductById = async (idProduct) => 
+    {
+        try 
+        {
+            const product = await productsModel.findOne({ '_id': idProduct });
+            return product;
+        } catch (error) 
+        {
+            throw error;
+        }
+    }
+    
+
     deleteProduct = async (id) => 
     {
         try 

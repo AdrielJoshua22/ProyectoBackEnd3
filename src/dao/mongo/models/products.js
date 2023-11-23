@@ -34,6 +34,11 @@ const schema = new mongoose.Schema({          //esquema de carga de datos de mi 
         type:Number,
         required:true
     },
+    owner: {
+        type:String,
+        default:'admin',
+        required:true
+    },
     thumbnail:
     {
         type: Array,

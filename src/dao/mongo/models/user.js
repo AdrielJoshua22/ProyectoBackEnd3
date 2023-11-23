@@ -11,8 +11,18 @@ const schema = new mongoose.Schema(
         role:
         {
             type:String,
-            enum:['user','admin','superadmin'],
+            enum:['user','admin','superadmin','premium'],
             default: 'user'
+        },
+        resetToken: 
+        {
+            type:String,
+            default: ''
+        },
+        resetTokenExpiry: 
+        {
+            type:Date,
+            default: ''
         }
     }
 )

@@ -1,4 +1,4 @@
-import { cartService, productService, ticketService } from "../services/index.js";
+import { cartService, productService, ticketService, userService } from "../services/index.js";
 
 const createCartByUserId = async (req, res) => 
 {
@@ -65,9 +65,12 @@ const updateCartProducts = async (req, res) => {
     try {
         const userId = req.user.id;
         const productId = req.body.productId;
-
+        const product = await productService.getProductById(productId);
+        const user = await userService.getUserById(userId);
+        
+        if(user.role === "premium" && product.owner === user.email) res.status(400).send("no puedes agregar este producto porque eres dueño de el");
+        
         let cart = await cartService.getCartByUserId(userId);
-
         if (!cart) 
         {
             cart = await cartService.createCart({ user: userId, products: [{ id_product: productId, quantity: 1 }] });
