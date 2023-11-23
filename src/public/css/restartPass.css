@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+body
+{
+    margin: 0;
+    overflow: hidden;
+}
+
+:root 
+{
+    --color-black-one: #111a25;
+    --color-crema-one: #FFFBF0;
+    --color-yellow-one: #f3b916;
+}
+
+.cont_restart
+{
+    width:100vw;
+    height: 100vh;
+    display: flex;
+    place-content: center;
+    align-items: center;
+    background-image:url('/img/others/river-8286407.png'); 
+    background-position: center;
+    background-size: cover;
+}
+
+.form_restart
+{
+    background: var(--color-black-one);
+    height: 50vh;
+    width: auto;
+    padding: 1vw;
+    border-radius: 13px;
+    display: flex;
+    place-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form_restart>form 
+{
+    display: flex;
+    place-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form_restart>form>input:not(.submitBtn)
+{
+    font-family: 'Montserrat', sans-serif;
+    width: 200px;
+    height: 20px;
+    margin: 3px 0;
+}
+
+.submitBtn 
+{
+    width: auto;
+    height: 30px;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    background-color: var(--color-yellow-one);
+    color: var(--color-black-one);
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.submitBtn:hover 
+{
+    transition: background-color ease-in 1s, color ease 1s;
+    background-color: var(--color-black-one);
+    color: var(--color-yellow-one);
+}
+
+.form_restart>h1, .form_restart>p
+{
+    color: var(--color-crema-one);
+}
+
+.form_restart>p
+{
+    font-size: 0.8rem;
+    margin: 5px 0;
+    padding: 0;
+}
+
+.form_restart p:nth-of-type(1)
+{
+    margin-top: 50px;
+}
+
+.form_restart>p>a 
+{
+    text-decoration: none;
+    color: var(--color-yellow-one);
+}
+

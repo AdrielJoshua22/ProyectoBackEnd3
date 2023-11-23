@@ -1,10 +1,25 @@
-<h1>profile</h1>
+<link rel="stylesheet" href="/css/profile.css">
 
-<p>nombre: {{user.firstName}}</p>
-<p>apellido: {{user.lastName}}</p>
-<p>edad: {{user.age}}</p>
-<p>email: {{user.email}}</p>
+<section class="cont_profile">
+    <span><h1>bienvenid@</h1></span>
+    <span><p><strong>mostraremos un poco de información sobre tí</strong></p></span>
+    <hr>
+    <span><p><strong>nombre</strong>: {{user.name}}</p></span>
+    <span><p><strong>id</strong>: {{user.id}}</p></span>
+    <span><p><strong>rol</strong>: {{user.role}}</p></span>
+    <span><p><strong>email</strong>: {{user.email}}</p></span>
 
-<a href="/api/sessions/logout">
-    <button>logout</button>
-</a>
+    <a href="/products"><button>tienda</button></a>
+    <form action="/api/carts" method="POST"><button type="submit">carrito</button></form>
+    <a href=""><button>mensajes (disabled)</button></a>
+
+    <a onclick="logout_redirect_fn();"><button>logout</button></a>
+</section>
+
+<script>
+    const logout_redirect_fn = ()=>
+    {
+        localStorage.removeItem('accessToken');
+        window.location.replace('/api/sessions/logout');
+    }
+</script>

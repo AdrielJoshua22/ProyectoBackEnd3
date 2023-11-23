@@ -1,19 +1,20 @@
-<h1>register</h1>
+<link rel="stylesheet" href="/css/register.css">
 
-<div>
-    <form id="registerForm">
-        <label>Nombre</label><input name="firstName">
-        <br>
-        <label>Apellido</label><input name="lastName">
-        <br>
-        <label>Email</label><input name="email">
-        <br>
-        <label>edad</label><input name="age">
-        <br>
-        <label>Contraseña</label><input name="password">
 
-        <input type="submit">
-    </form>
-</div>
+<section class="cont_register">
+    <div class="form_register">
+        <h1>register</h1>
+
+        <form id="registerForm">
+            <input name="firstName" placeholder="primer nombre">
+            <input name="lastName" placeholder="apellido">
+            <input name="email" placeholder="email (user)" type="email">
+            <input name="age" placeholder="edad" type="number">
+            <input name="password" placeholder="password" type="password">
+
+            <input class="submitBtn" type="submit" value="registrar usuario">
+        </form>
+    </div>
+</section>
 
 <script src="/js/register.js"></script>

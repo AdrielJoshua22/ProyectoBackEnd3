@@ -30,9 +30,12 @@ router.get('/login', async(req,res)=>{
     res.render('login')
 })
 
-
 router.get('/profilejwt',passportCall('jwt'), async(req,res)=>{
     res.render('ProfileJWT', {user: req.user});
+})
+
+router.get('/restartPass',passportCall('jwt'), async(req,res)=>{
+    res.render('restartPass', {user: req.user});
 })
 
 
