@@ -17,6 +17,7 @@ form.addEventListener('submit',async e=>{
     const result = await response.json();
     if(response.status ===200)
     {
+        localStorage.setItem('accessToken', result.token);
         window.location.replace('/products');
     }
 })

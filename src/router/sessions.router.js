@@ -94,7 +94,7 @@ router.get('/githubcallback',validateJWT, passportCall('github'),(req,res)=>
     req.logger.info(`[${new Date().toISOString()}] Login exitoso por github`);
     const user = req.user;
     res.redirect('/');
-})
+});
 
 router.get('/google', passportCall('google', { scope: ['profile', 'email'] }));
 router.get('/googlecallback', passportCall('google', { failureRedirect: '/login' }), (req, res) => {
@@ -103,13 +103,13 @@ router.get('/googlecallback', passportCall('google', { failureRedirect: '/login'
     res.cookie('authCookie', token, { httpOnly: true });
     res.render('products', { authToken: token });
     req.logger.info(`[${new Date().toISOString()}] Login exitoso por google`);
- });
+});
 
 router.get('/authFail', (req,res)=>
 {
     req.logger.error(`[${new Date().toISOString()}] Error: Hubo un fallo en la autenticacion del usuario`);
     res.status(401).send({status:"error"});
-})
+});
 
 
 export default router;

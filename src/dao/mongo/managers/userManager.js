@@ -17,7 +17,14 @@ export default class UserManager
         return userModel.findOne(param);
     }
 
-    create = (user)=>{
+    deleteUserByEmail = (email) => 
+    {
+        return userModel.deleteOne({ email: email });
+    }
+
+    create = (user)=>
+    {
+        user.role = 'user';
         return userModel.create(user);
     }
 

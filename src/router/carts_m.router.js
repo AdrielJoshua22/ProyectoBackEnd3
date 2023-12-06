@@ -12,7 +12,6 @@ const cartsService = new CartsManager();
 router.get('/:cid', passportCall('jwt', { session: false }), cartsController.getCart);
 router.post('/', passportCall('jwt', { session: false }), cartsController.createCartByUserId);
 router.post('/addProductToCart',validateJWT, authorization(['user']), passportCall('jwt', { session: false }), cartsController.updateCartProducts);
-
 router.post('/:cid/purchase', validateJWT, authorization(['user']), passportCall('jwt', { session: false }), cartsController.purchaseCart);
 
 router.delete('/:cid/products/:pid', async (req, res) => {

@@ -1,0 +1,14 @@
+
+{"level":"error","message":"[2023-11-21T03:27:54.864Z] Error: incorrect credentials"}
+{"level":"error","message":"[2023-11-21T03:28:05.817Z] Error: incorrect credentials"}
+{"level":"error","message":"[2023-11-21T16:08:39.744Z] Error: Parameter \"filter\" to findOne() must be an object, got \"64fc9eb1822dccf13a3e2196\" (type string)"}
+{"level":"error","message":"[2023-11-21T16:15:49.238Z] Error: Parameter \"filter\" to findOne() must be an object, got \"653d6cfb5a865d6de4aba7e2\" (type string)"}
+{"level":"error","message":"[2023-11-21T16:16:14.003Z] Error: Parameter \"filter\" to findOne() must be an object, got \"653d6cfb5a865d6de4aba7e2\" (type string)"}
+{"level":"error","message":"[2023-11-21T16:21:37.474Z] Error: Cannot set headers after they are sent to the client"}
+{"level":"error","message":"[2023-11-21T16:26:26.790Z] Error: Cannot set headers after they are sent to the client"}
+{"level":"error","message":"[2023-11-21T16:26:41.839Z] Error: Cannot set headers after they are sent to the client"}
+{"level":"error","message":"[2023-11-21T16:35:35.608Z] Error: Cannot set headers after they are sent to the client"}
+{"level":"error","message":"[2023-11-26T01:01:16.113Z] Error: Missing credentials"}
+{"level":"error","message":"[2023-11-26T01:02:10.452Z] Error: Missing credentials"}
+{"level":"error","message":"[2023-11-26T01:03:15.701Z] Error: Missing credentials"}
+{"level":"error","message":"[2023-11-26T01:12:07.087Z] Error: incorrect credentials"}

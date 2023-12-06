@@ -80,7 +80,7 @@ export default class ProductDao
 
     updateProduct = (id, product)=>
     {
-        return productsModel.updateOne({_id:id},{$set:product});
+        return productsModel.findOneAndUpdate({ _id: id }, { $set: product }, { new: true });
     }
 
     getProductById = async (idProduct) => 
@@ -98,21 +98,15 @@ export default class ProductDao
 
     deleteProduct = async (id) => 
     {
-        try 
-        {
-            const updatedProduct = await productsModel.findByIdAndUpdate(
-                id,
-                { $set: { status: false } }, 
-                { new: true }
-            );
+        try {
+            const deletedProduct = await productsModel.deleteOne({ _id: id });
     
-            if (!updatedProduct) {
+            if (deletedProduct.deletedCount === 0) {
                 throw new Error(`No se encontró el producto con ID ${id}`);
             }
-            
-            return updatedProduct;
-        } catch (error) 
-        {
+    
+            return { status: true }; // Puedes devolver cualquier indicador de éxito
+        } catch (error) {
             throw error;
         }
     }

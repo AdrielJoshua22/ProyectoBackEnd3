@@ -1,5 +1,4 @@
-import errorDictionary from "../utils/errorDictionary";
-
+import errorDictionary from "../utils/errorDictionary.js";
 
 const errorHandler = (err, req, res, next) => 
 {

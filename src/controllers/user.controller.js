@@ -14,7 +14,7 @@ const restartPass = async (req, res) =>
 
         if (!user) 
         {
-            return res.status(404).json({ msj: 'Correo electrónico no encontrado' });
+            return res.status(404).json({ message: 'Correo electrónico no encontrado' });
         }
 
         const resetToken = generateResetToken();

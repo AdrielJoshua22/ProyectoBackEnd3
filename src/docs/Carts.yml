@@ -1,0 +1,243 @@
+swagger: '2.0'
+info:
+  title: 'API de Carritos'
+  version: '1.0.0'
+basePath: '/api'
+schemes:
+  - 'https'
+paths:
+  /api/carts/{cid}:
+    get:
+      summary: Obtener detalles del carrito por ID
+      description: |
+        - Este endpoint devuelve los detalles de un carrito específico basado en su ID y renderiza la vista `Carts`.
+        
+        - Se comunica con el método `getCart` del controlador `carts.controller`.
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: req.param.cid
+          type: string
+          required: true
+          description: ID único del carrito.
+      responses:
+        200:
+          description: Renderiza la vista `Carts` con los detalles del carrito.
+        400:
+          description: No se encontró ningún carrito con el ID indicado.
+        500:
+          description: Error de conexión con el servidor. Revisar las variables de entorno del servidor.
+
+  /api/carts:
+    post:
+      summary: Crea un carrito único (a id user)
+      description: |
+        - Este endpoint es invocado desde la vista `Profile` cuando se hace clic en "carrito" de un producto.
+        
+        - Se comunica con el método `createCartByUserId` para crear un carrito asociado al ID de usuario proporcionado por el token del user logeado.
+        
+        - Una vez creado el carrito, redirecciona al endpoint `/api/carts/{cid}`.
+      tags: 
+        - Carts
+      parameters:
+        - in: query
+          name: req.user.id
+          type: string
+          required: true
+          description: ID único de usuario.
+      responses:
+        200:
+          description: Redirecciona al endpoint `/api/carts/{cid}`. Si el carrito ya existe, también se redirecciona.
+        500:
+          description: Error de conexión con el servidor. Revisar las variables de entorno del servidor.
+  
+  /api/carts/addProductToCart:
+    post:
+      summary: Agrega un producto a carrito dado user id
+      description: |
+        - Este endpoint recibe por req.user y req.body id usuario e id producto, y agrega el producto al carrito unico del user
+        
+        - Se comunica con el método `updateCartProducts` para agregar el producto, si el carrito no existe lo crea y agrega el producto, si ya existe directamente lo agrega.
+        
+        - En caso de intentar agregar un producto que ya existe en el carrito, se aumenta su amount en +1
+
+        - Este endpoint es invocado al darle click al boton "agregar a carrito" de cada producto de la hbs vista Products.
+      tags: 
+        - Carts
+      parameters:
+        - in: path
+          name: req.user.id
+          type: string
+          required: true
+          description: ID único de usuario.
+
+        - in: path
+          name: req.body.productId
+          type: string
+          required: true
+          description: ID único de producto.
+      responses:
+        200:
+          description: El producto se agrego satisfactoriamente al carrito unico. devuleve en .send "Producto actualizado en el carrito").
+        400:
+          description: El usuario que esta intentando agregar un producto es de rol premium, y el producto que intenta agregar es de su propiedad (owner).
+        500:
+          description: Error de conexión con el servidor. Revisar las variables de entorno del servidor.
+  
+  /api/carts/{cid}/purchase:
+    post:
+      summary: Compra carrito (todos sus productos) por CID
+      description: |
+        - Este endpoint recibe por req.user, req.params.cid y req.body.sumTotalPrice y  efectua compra de carrito sobre usuario unico
+        
+        - Se comunica con el método `purchaseCart` para comprar el carrito.
+        
+        - Se asegura de que exista carrito a comprar (el usuario puede intentar comprar un carrito sin que se haya creado antes, se crea en demanda de querer o bien ver su carrito o bien cargar productos en el)
+        
+        - Se asegura de que el amount por producto del carrito sea menor al stock en la bd mongo de cada producto de por si.
+
+        - De efectuarse la compra del carrito, genera un ticket guardando el id user, id carrito y precio total de los productos
+
+        - Una vez se efectua la compra vacia el array de products del carrito en cuestion y updatea la quantity de cada producto involucrado en la bd
+      tags: 
+        - Carts
+      parameters:
+        - in: path
+          name: req.user.id
+          type: string
+          required: true
+          description: ID único de usuario.
+
+        - in: path
+          name: req.params.cid
+          type: string
+          required: true
+          description: ID único de carrito.
+        
+        - in: path
+          name: req.body.sumTotalPrice
+          type: number
+          required: true
+          description: suma del total de productos por su amount (costo total de compra).
+      responses:
+        200:
+          description: El carrito se compro exitosamente, se vacia carrito, actualiza quantity de productos comprados en bd y genera ticket.
+        404:
+          description: |
+            - Uno de los productos en carrito no se encontro en la bd. Puede ser que a momento de agregarlo a carrito existia pero luego se dio de baja.
+            
+            - No se encontro el carrito. Puede ser que el usuario intento comprar el carrito sin antes haber registrado producto alguno o consultado carrito (se genera bajo demanda).
+        500:
+          description: Error de conexión con el servidor. Revisar las variables de entorno del servidor.
+
+  /{cid}/products/{pid}:
+    delete:
+      summary: Elimina producto unico (pid) de carrito unico (cid)
+      description: |
+        - Este endpoint recibe por params cid (id carrito) y pid (id producto)
+        
+        - Se comunica con metodo `cartsService.removeProductFromCart` pasando ambos params y elimina producto del carrito.
+
+        - Este endpoint recibe como error desde metodo removeProductFromCart de cartDao el mensaje "No se encontró el carrito con ID ${cartId}" si no existe carrito
+      tags: 
+        - Carts
+      parameters:
+        - in: path
+          name: req.params.cid
+          type: string
+          required: true
+          description: ID único de carrito.
+
+        - in: path
+          name: req.params.pid
+          type: string
+          required: true
+          description: ID único de producto.
+      responses:
+        200:
+          description: El producto fue eliminado del carrito.
+        500:
+          description: Error de conexión con el servidor. Revisar las variables de entorno del servidor.
+    
+    put:
+      summary: Actualiza cantidad de producto unico de carrito dado pid, cid y nueva amount
+      description: |
+        - Este endpoint recibe por params (cid) el id unico de carrito, el pid especifico de un producto ya existente en el y su nueva cantidad.
+        
+        - Se comunica con metodo `cartsService.updateProductQuantity` pasando cid, pid y nueva cantidad.
+
+        - Si existe quantity del producto, la suma a la existente mas la nueva sino le carga la nueva quantity
+      tags: 
+        - Carts
+      parameters:
+        - in: path
+          name: req.params.cid
+          type: string
+          required: true
+          description: ID único de carrito.
+
+        - in: path
+          name: req.params.pid
+          type: string
+          required: true
+          description: id unico de producto.
+        
+        - in: path
+          name: req.body.quantity
+          type: number
+          required: true
+          description: cantidad de producto.
+      responses:
+        200:
+          description: Se actualizo la cantidad del producto en el carrito.
+        500:
+          description: Error de conexión con el servidor. Revisar las variables de entorno del servidor.
+  
+  /{cid}:
+    put:
+      summary: Actualiza carrito por id carrito unico
+      description: |
+        - Este endpoint recibe por params (cid) el id unico de carrito y un array con sus nuevos productos, actualiza sus productos por el array recibido reescribiendolos (y reemplazandolos).
+        
+        - Se comunica con metodo `cartsService.updateCartWithProducts` pasando cid y array productos.
+
+        - Este endpoint recibe como error desde metodo updateCartWithProducts de cartDao el mensaje "No se encontró el carrito con ID ${cartId}" si no existe carrito
+      tags: 
+        - Carts
+      parameters:
+        - in: path
+          name: req.params.cid
+          type: string
+          required: true
+          description: ID único de carrito.
+
+        - in: path
+          name: req.body.products
+          type: array
+          required: true
+          description: array de productos.
+      responses:
+        200:
+          description: Carrito actualizado con nuevos productos.
+        500:
+          description: Error de conexión con el servidor. Revisar las variables de entorno del servidor.
+
+    delete:
+      summary: Vacia prodcutos de carrito dado su id (carrito)
+      description: Este endpoint recibe por params (cid) y elimina completamente sus registros de productos
+      tags: 
+        - Carts
+      parameters:
+        - in: path
+          name: req.params.cid
+          type: string
+          required: true
+          description: ID único de carrito.
+      responses:
+        200:
+          description: Productos de carrito vaciados satisfactoriamente.
+        500:
+          description: Error de conexión con el servidor. Revisar las variables de entorno del servidor.
+
+    

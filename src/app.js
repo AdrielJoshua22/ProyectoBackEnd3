@@ -1,4 +1,4 @@
-import config from './config.js';
+import config from '../config.js';
 import express from 'express';
 import exphbs from 'express-handlebars';
 import mongoose from 'mongoose';
@@ -21,9 +21,11 @@ import twilio from 'twilio';
 import errorHandler from './middlewares/errorHandler.js';
 import attachLogger from './middlewares/attachLogger.js';
 
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUIExpress from 'swagger-ui-express';
+
 import cluster from 'cluster';
 import os from 'os';
-
 
 
 if(cluster.isPrimary) 
@@ -47,6 +49,23 @@ if(cluster.isPrimary)
     const ENVPORT =  config.PORT;
     const COOKIEPARSER =   config.COOKIEPARSER;
 
+    //configuracion de swagger
+    const swaggerSpecOptions = 
+    {
+        definition:
+        {
+            openapi:'3.0.1',
+            info: 
+            {
+                title: 'e-commerce wine uruguay',
+                description: 'e-commerce en base a una tienda online de vinos.'
+            }
+        },
+        apis: [`${__dirname}/docs/**/*.yml`]
+    }
+
+    const swaggerSpec = swaggerJSDoc(swaggerSpecOptions);
+    
 
     //twilio config init
     const twilioClient = twilio(config.TWILIO_SID, config.TWILIO_AUTH_TOKEN);
@@ -77,7 +96,7 @@ if(cluster.isPrimary)
             }
         }
     });
-
+    
     hbs.allowProtoPropertiesByDefault = true;
 
 
@@ -95,6 +114,7 @@ if(cluster.isPrimary)
     app.use(express.static((`${__dirname}/public`)));
     app.use(cookieParser(COOKIEPARSER));
     app.use(errorHandler);
+    
 
 
 
@@ -108,6 +128,8 @@ if(cluster.isPrimary)
     app.use('/api/sessions', sessionRouter);
     app.use('/api/dictionary', dictionaryRouter);
     app.use('/api/users', usersRouter);
+    app.use('/apidocs', swaggerUIExpress.serve, swaggerUIExpress.setup(swaggerSpec));
+    
 
     //sms example 
     app.get('/twilio', async (req,res)=>
