@@ -1,4 +1,4 @@
-import config from '../config.js';
+import config from './config.js';
 import express from 'express';
 import exphbs from 'express-handlebars';
 import mongoose from 'mongoose';
@@ -23,6 +23,7 @@ import attachLogger from './middlewares/attachLogger.js';
 
 import cluster from 'cluster';
 import os from 'os';
+
 
 
 if(cluster.isPrimary) 
