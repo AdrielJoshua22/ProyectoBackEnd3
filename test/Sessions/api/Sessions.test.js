@@ -48,7 +48,7 @@ describe('test funcional para Sessions routes', function()
     {
         const userCredentials = 
         {
-            email: 'luttringerezequiel@gmail.com',
+            email: 'joshuaamengual9305@gmail.com',
             password: '123'
         };
 
